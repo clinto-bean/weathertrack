@@ -6,5 +6,4 @@ vendor/
 go.work
 go.work.sum
 /bin
-/internal
 /vendor
