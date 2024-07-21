@@ -10,11 +10,6 @@ import (
 	godotenv "github.com/joho/godotenv"
 )
 
-type apiConfig struct {
-	// DB *database.Queries
-	instance string
-}
-
 func main() {
 	err := godotenv.Load()
 	if err != nil {
@@ -22,16 +17,15 @@ func main() {
 	}
 
 	port := os.Getenv("PORT")
-
 	mux := http.NewServeMux()
-	mux.HandleFunc("/v1/alerts", api.HandlerGetAlerts)
-
 	CORSHandler := middleware.CORSHandler(mux)
-
 	srv := &http.Server{
 		Addr:    ":" + port,
 		Handler: CORSHandler,
 	}
+
+	mux.HandleFunc("/v1/alerts", api.HandlerHandleAlertRequests)
+
 	log.Printf("Server running on port %v\n", port)
 	log.Fatal(srv.ListenAndServe())
 }
