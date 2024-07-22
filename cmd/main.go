@@ -23,8 +23,7 @@ func main() {
 		Addr:    ":" + port,
 		Handler: CORSHandler,
 	}
-
-	mux.HandleFunc("/v1/alerts", api.HandlerHandleAlertRequests)
+	mux.HandleFunc("/v1/alerts/*", api.HandlerHandleAlertRequests)
 
 	log.Printf("Server running on port %v\n", port)
 	log.Fatal(srv.ListenAndServe())
